@@ -26,13 +26,13 @@ export default function About() {
 
             <div className="space-y-6 text-lg text-neutral-600 leading-relaxed max-w-xl">
               <p>
-                We believe that architecture is more than just buildings; it's about creating 
-                environments that inspire and endure. Our approach blends modern aesthetics 
+                Architecture is more than just buildings; it's about creating 
+                environments that inspire and endure. Aspiring to blend modern aesthetics 
                 with sustainable functionality.
               </p>
               <p>
                 Every project is a unique dialogue between the site, the client, and the 
-                surrounding community. We strive to provide the best services, ensuring 
+                surrounding community. Striving to provide the best services, ensuring 
                 quality and satisfaction in every interaction.
               </p>
             </div>

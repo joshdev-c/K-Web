@@ -15,16 +15,33 @@ export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Simulate form submission
-    setTimeout(() => {
+    
+    try {
+      const response = await fetch("/api/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+        setFormData({ name: "", email: "", subject: "", message: "" });
+        setTimeout(() => setSubmitted(false), 5000);
+      } else {
+        const errorData = await response.json();
+        alert(`Failed to send email: ${errorData.error || "Unknown error"}`);
+      }
+    } catch (error) {
+      console.error("Error sending email:", error);
+      alert("An error occurred while sending the email. Please try again later.");
+    } finally {
       setIsSubmitting(false);
-      setSubmitted(true);
-      setFormData({ name: "", email: "", subject: "", message: "" });
-      setTimeout(() => setSubmitted(false), 3000);
-    }, 1500);
+    }
   };
 
   const handleChange = (
@@ -60,7 +77,7 @@ export default function Contact() {
             transition={{ delay: 0.2 }}
             className="mt-6 text-neutral-600 max-w-lg mx-auto"
           >
-            Have a project in mind? Let&apos;s talk. We&apos;re here to help you bring your architectural vision to life.
+            Have a project in mind? Let&apos;s talk. I&apos;m here to help you bring your architectural vision to life.
           </motion.p>
         </div>
 
@@ -80,7 +97,7 @@ export default function Contact() {
                   <Mail size={24} />
                 </div>
                 <div>
-                  <p className="font-medium text-lg">Email Us</p>
+                  <p className="font-medium text-lg">Email</p>
                   <a href="mailto:info@kbarchitecture.com" className="text-neutral-600 hover:text-black transition-colors">
                     info@kbarchitecture.com
                   </a>
@@ -92,41 +109,42 @@ export default function Contact() {
                   <Phone size={24} />
                 </div>
                 <div>
-                  <p className="font-medium text-lg">Call Us</p>
-                  <a href="tel:+1234567890" className="text-neutral-600 hover:text-black transition-colors">
-                    +1 (234) 567-890
+                  <p className="font-medium text-lg">Phone</p>
+                  <a className="text-neutral-600">
+                    +63 1234567890
                   </a>
                 </div>
               </div>
 
-              <div className="flex items-start gap-4">
+              {/* STUDIO ADDRESS IF NEEDED */}
+              {/* <div className="flex items-start gap-4">
                 <div className="w-12 h-12 bg-black/5 rounded-xl flex items-center justify-center text-black shrink-0">
                   <MapPin size={24} />
                 </div>
                 <div>
-                  <p className="font-medium text-lg">Our Studio</p>
+                  <p className="font-medium text-lg">Studio</p>
                   <p className="text-neutral-600">
                     123 Architectural Ave, Suite 100<br />
                     Design District, NY 10001
                   </p>
                 </div>
-              </div>
+              </div> */}
             </div>
 
             <div className="pt-8">
-              <h4 className="text-lg font-semibold mb-4">Follow Our Journey</h4>
+              <h4 className="text-lg font-semibold mb-4">Follow My Journey</h4>
               <div className="flex gap-4">
                 <a 
-                  href="https://www.instagram.com/katryn_kay/" 
-                  target="_blank" 
+                  // href="https://www.instagram.com/katryn_kay/" 
+                  // target="_blank" 
                   rel="noopener noreferrer"
                   className="w-10 h-10 bg-white border border-neutral-200 rounded-lg flex items-center justify-center text-neutral-600 hover:text-black hover:border-black transition-all"
                 >
                   <Instagram size={20} />
                 </a>
                 <a 
-                  href="https://www.facebook.com/KTRYNKAY" 
-                  target="_blank" 
+                  // href="https://www.facebook.com/KTRYNKAY" 
+                  // target="_blank" 
                   rel="noopener noreferrer"
                   className="w-10 h-10 bg-white border border-neutral-200 rounded-lg flex items-center justify-center text-neutral-600 hover:text-black hover:border-black transition-all"
                 >
@@ -167,7 +185,7 @@ export default function Contact() {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    placeholder="hello@example.com"
+                    placeholder="sample@email.com"
                     className="w-full p-3 rounded-xl border border-neutral-200 focus:outline-none focus:ring-2 focus:ring-black/5 focus:border-black transition-all"
                   />
                 </div>
@@ -196,7 +214,7 @@ export default function Contact() {
                   onChange={handleChange}
                   required
                   rows={4}
-                  placeholder="Tell us about your project..."
+                  placeholder="Tell me more about your project..."
                   className="w-full p-3 rounded-xl border border-neutral-200 focus:outline-none focus:ring-2 focus:ring-black/5 focus:border-black transition-all resize-none"
                 />
               </div>

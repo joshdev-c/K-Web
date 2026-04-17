@@ -92,7 +92,9 @@ export const Navbar = () => {
 
         {/* Right */}
         <div className="hidden md:flex gap-4 w-1/3 justify-end">
-          <Link href="https://www.facebook.com/KTRYNKAY" target="_blank">
+          <Link href="#"
+          //  href="https://www.facebook.com/KTRYNKAY" target="_blank"
+          >
             <Image
               src="/facebook.png"
               alt="Logo"
@@ -102,7 +104,9 @@ export const Navbar = () => {
             />
           </Link>
 
-          <Link href="https://www.instagram.com/katryn_kay/" target="_blank">
+          <Link href="#"
+          //  href="https://www.instagram.com/katryn_kay/" target="_blank"
+          >
             <Image
               src="/instagram.png"
               alt="Logo"
